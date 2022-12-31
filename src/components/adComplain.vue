@@ -2,13 +2,14 @@
 <div>
     <title>Complaints - Housekeeper Admin Dashboard</title>
     <!-- sidebar -->
+    <Sidebar/>
    
     <div class="main-content">
       <!-- Header -->
       <div class="header bg-background pb-6 pt-5 pt-md-6">
       <div class="container-fluid">
       
-      
+      <Header/>
       </div>
     </div>
     <!-- Page content -->
@@ -54,10 +55,14 @@
 
 </template>
 <script>
+import Sidebar from './Sidebar.vue'
+import Header from './Header.vue'
 
 export default{
     name:'AdminComplain',
     components:{
+      Sidebar,
+      Header
     
     }
 }

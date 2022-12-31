@@ -58,7 +58,7 @@ export default {
                 console.log(data)
                 localStorage.setItem("isUserExist", data.token);
                 localStorage.setItem("userData", JSON.stringify(data));
-                this.$router.push("/adDash");
+                this.$router.push("/addashboard");
             }
             catch (e) {
                 this.error = true;

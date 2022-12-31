@@ -3,6 +3,7 @@
         <title>Allot Housekeeper - Housekeeper Admin Dashboard</title>
         <body>
             <!-- sidebar -->
+            <Sidebar/>
 
         <div class="main-content">
             <!-- Header -->
@@ -19,6 +20,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+                    <Header/>
       </div>
           
             </div>
@@ -31,14 +33,14 @@
                                 <h5 class="mb-0">Allot Housekeeper</h5>
                             </div>
                             <div class="card-body pb-5">
-                                <form method="POST" autocomplete="off" action="allothandler.php">
+                                <form method="POST" autocomplete="off" action="">
                                     <div class="pl-lg-4">
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="form-control-label" for="input-id">Request Id</label>
                                                     <input type="text" name="allotId" id="input-id" class="form-control"
-                                                        readonly value="">
+                                                        >
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
@@ -90,10 +92,14 @@
 
 </template>
 <script>
+import Sidebar from './Sidebar.vue'
+import Header from './Header.vue'
 
 export default {
     name: 'AllotworkerApp',
     components: {
+        Sidebar,
+        Header
      
       }
 

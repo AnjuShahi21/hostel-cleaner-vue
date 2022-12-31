@@ -6,7 +6,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <!-- Brand -->
-    <a class="navbar-brand pt-4" href="index.php">
+    <a class="navbar-brand pt-4" href="">
       <h2></h2>
     </a>
     <!-- User -->
@@ -23,7 +23,7 @@
           <div class=" dropdown-header noti-title">
             <h6 class="text-overflow m-0">Housekeeper service</h6>
           </div>
-          <a href="index.php?logout='1'" class="dropdown-item">
+          <a href="?logout='1'" class="dropdown-item">
             <i class="ni ni-user-run"></i>
             <span>Logout</span>
           </a>
@@ -36,7 +36,7 @@
       <div class="navbar-collapse-header d-md-none">
         <div class="row">
           <div class="col-6 collapse-brand">
-            <a href="index.php">
+            <a href="">
               <h3>Housekeeper</h3>
             </a>
           </div>
@@ -75,7 +75,7 @@
           </li>
   
           <li>
-          <b-nav-item to="/logout">
+          <b-nav-item @click="userLogout()" to="/logout">
             <i class="ni ni-user-run"></i> Logout
           </b-nav-item>
           </li>
@@ -88,7 +88,14 @@
 </template>
 <script>
 export default{
-    name:'UsersidenavApp'
+    name:'UsersidenavApp',
+    methods: {
+        userLogout() {
+            localStorage.clear();
+            this.$router.push('/login');
+        }
+
+  }
 }
 
 

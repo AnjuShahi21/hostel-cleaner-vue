@@ -2,13 +2,14 @@
   <div>
     <title>Suggestions - Housekeeper Admin Dashboard</title>
 
-    <body>
+ 
+      <Sidebar/>
 
       <div class="main-content">
         <!-- Header -->
         <div class="header bg-background pb-6 pt-5 pt-md-6">
           <div class="container-fluid">
-            <!-- <?php require("allotheader.php"); ?> -->
+          <Header/>
            
           </div>
         </div>
@@ -36,7 +37,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <!-- <?php          -->
+                     
 
                     </tbody>
                   </table>
@@ -47,16 +48,20 @@
         </div>
       </div>
 
-    </body>
+  
   </div>
 
 </template>
 
 <script>
+import Sidebar from './Sidebar.vue'
+import Header from './Header.vue'
 
 export default{
   name:'AdminSuggest',
   components: {
+    Sidebar,
+    Header
       
       }
 }

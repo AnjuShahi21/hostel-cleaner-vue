@@ -8,11 +8,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Brand -->
-    <!-- <a class="navbar-brand pt-4" href="/addashboard"> -->
-      <!-- <h2><?php echo $_SESSION['username']; ?></h2> -->
-    <!-- </a> -->
-    <!-- User -->
+    
     <ul class="nav align-items-center d-md-none">
       <li class="nav-item dropdown">
         <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -22,15 +18,7 @@
             </span>
           </div>
         </a>
-        <!-- <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
-          <div class=" dropdown-header noti-title">
-            <h6 class="text-overflow m-0">Housekeeper service</h6>
-          </div>
-          <a href="allot.php?logout='1'" class="dropdown-item">
-            <i class="ni ni-user-run"></i>
-            <span>Logout</span>
-          </a>
-        </div> -->
+       
       </li>
     </ul>
     <!-- Collapse -->
@@ -39,7 +27,7 @@
       <div class="navbar-collapse-header d-md-none">
         <div class="row">
           <div class="col-6 collapse-brand">
-            <a href="index.php">
+            <a href="">
               <h3>Housekeeper</h3>
             </a>
           </div>
@@ -89,7 +77,7 @@
           </li>
         
           <li>
-          <b-nav-item to="/logout">
+          <b-nav-item @click="userLogout" to="/logout">
             <i class="ni ni-user-run"></i> Logout
           </b-nav-item>
           </li>
@@ -104,16 +92,21 @@
 <script>
 export default({
   name:'SidebarVue',
-  data(){
-    return {isOpened:false}
-  },
+  // data(){
+  //   return {isOpened:false}
+  // },
   
-  methods:{
-
-    abc(){
-      console.log('Hello');
-      this.isOpened = !this.isOpened
-    }
+  
+//methods:{
+    // abc(){
+    //   console.log('Hello');
+    //   this.isOpened = !this.isOpened
+    // }
+    methods: {
+        userLogout() {
+            localStorage.clear();
+            this.$router.push('/login');
+        }
 
   }
 })

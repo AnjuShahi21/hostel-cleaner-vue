@@ -1,9 +1,9 @@
 <template>
     <div>
         <title>Housekeeper Admin Dashboard</title>
-        <body>
+       
           <!-- side navigation -->
-        
+        <userSideBar/>
 
        
    <!-- Main content -->
@@ -11,9 +11,9 @@
       <!-- Header -->
       <div class="header bg-background pb-6 pt-5 pt-md-6">
       <div class="container-fluid">
-        <!-- <?php require("allotheader.php"); ?> -->
+       
       
-      
+      <Header/>
      
       </div>
     </div>
@@ -51,7 +51,7 @@
       </div>
     </div>
   </div>
-  </body>
+
   </div>
 
 
@@ -59,11 +59,15 @@
 
 </template>
 <script>
-
+import userSideBar from './userSideBar.vue'
+import Header from './Header.vue'
 
 export default{
     name: "userDashVue",
     components: {
+      userSideBar,
+      Header
+
       
       }
 }

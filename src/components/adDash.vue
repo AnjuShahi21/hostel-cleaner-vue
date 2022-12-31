@@ -3,6 +3,7 @@
         <title>Housekeeper Admin Dashboard</title>
         <body>
           <!-- side navigation -->
+          <Sidebar/>
           
    <!-- Main content -->
     <div class="main-content">
@@ -10,34 +11,20 @@
       <div class="header bg-background pb-6 pt-5 pt-md-6">
       <div class="container-fluid">
         <!-- notification message -->
-        <!-- <?php if (isset($_SESSION['admin_logged'])) : ?> -->
+        
           <div class="alert bg-success bg-gradient alert-success alert-dismissible fade show" role="alert">
             <span class="alert-inner--icon"><i class="ni ni-like-2"></i></span>
             <span class="alert-inner--text"><strong>Welcome to online Hostel Cleaner admin portal.</strong>
-            <!-- <?php echo $_SESSION['admin_logged']; unset($_SESSION['admin_logged']); ?> -->
+            
           </span>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-        <!-- <?php endif ?> -->
+       
 
-         <!-- notification message 
-        <?php if (isset($_SESSION['worker_alloted'])) : ?> 
-          <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <span class="alert-inner--icon"><i class="ni ni-like-2"></i></span>
-            <span class="alert-inner--text"><strong><?php echo $_SESSION['worker_alloted']; ?></strong> 
-           <?php unset($_SESSION['worker_alloted']); ?> 
-          
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>  -->
-        <!-- <?php endif ?> -->
-
-
-        <!-- <?php require("allotheader.php"); ?> -->
       
+      <Header/>
      
      
       </div>
@@ -84,11 +71,15 @@
 
 </template>
 <script>
+import Sidebar from './Sidebar.vue'
+import Header from './Header.vue'
 
 
 export default{
     name: "AdminDashboard",
     components: {
+      Sidebar,
+      Header
      
       }
 }

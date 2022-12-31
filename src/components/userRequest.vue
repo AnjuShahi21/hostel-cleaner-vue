@@ -3,33 +3,14 @@
  
   <title>Clean Request - Housekeeper Student Dashboard</title>
 <body>
+  <userSideBar/>
 
 <div class="main-content">
       <!-- Header -->
       <div class="header bg-background pb-6 pt-5 pt-md-6">
       <div class="container-fluid">
-        <!-- notification message -->
-      
-          <!-- <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <span class="alert-inner--icon"><i class="ni ni-like-2"></i></span>
-            
-         
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div> -->
-       
-
-        <!-- notification message -->
-       
-          <!-- <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            
-         
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <Header/> -->
+        
+         <Header/>
 
       </div>
     </div>
@@ -42,7 +23,7 @@
               <h5 class="mb-0">Send Clean Request</h5>
             </div>
             <div class="card-body pb-5">
-              <form autocomplete="off" method="POST" action="studenthandler.php">
+              <form autocomplete="off" method="POST" action="">
                 <div class="pl-lg-4">
                   <div class="row">
                     <div class="col-lg-6">
@@ -77,9 +58,14 @@
 </template>
 
 <script>
+import userSideBar from './userSideBar.vue';
+
+import Header from './Header.vue'
 
 export default {
   name: 'userRequest',
+  userSideBar,
+  Header
  
   
 }

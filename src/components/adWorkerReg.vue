@@ -1,24 +1,13 @@
 <template>
     <div>
         <title>Register HouseKeeper - Housekeeper Admin Dashboard</title>
+        <Sidebar/>
         
         <div class="main-content">
             <!-- Header -->
             <div class="header bg-background pb-6 pt-5 pt-md-6">
                 <div class="container-fluid">
-                    <!-- notification message -->
-                    <!-- <?php if (isset($_SESSION['worker_registered'])) : ?> -->
-                    <!-- <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <span class="alert-inner--icon"><i class="ni ni-like-2"></i></span> -->
-                        <!-- <?php echo $_SESSION['worker_registered']; unset($_SESSION['worker_registered']); ?> -->
-
-                        <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div> -->
-                    <!-- <?php endif ?>
-                    <?php require("allotheader.php"); ?> -->
-                  
+                   <Header/>
                 </div>
             </div>
             <!-- Page content -->
@@ -30,7 +19,7 @@
                                 <h5 class="mb-0">Register New HostelCleaner</h5>
                             </div>
                             <div class="card-body pb-5">
-                                <form method="POST" autocomplete="off" action="allothandler.php">
+                                <form method="POST" autocomplete="off" action="">
                                     <div class="pl-lg-4">
                                         <div class="row">
                                             <div class="col-md-3">
@@ -68,10 +57,14 @@
 </template>
 
 <script>
+import Sidebar from './Sidebar.vue'
+import Header from './Header.vue'
 
 export default{
     name:'AdminWorkReg',
     components:{
+        Sidebar,
+        Header
         
 
     }

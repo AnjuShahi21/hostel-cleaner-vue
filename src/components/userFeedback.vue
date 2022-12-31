@@ -2,10 +2,8 @@
 <div>
    
   <title>Feedback Form - Housekeeper Student Dashboard</title>
- 
-<body>
-
   <!-- Side Navigation -->
+  <userSideBar/>
  
 
   <!-- Main content -->
@@ -14,19 +12,8 @@
       <div class="header bg-background pb-6 pt-5 pt-md-6">
       <div class="container-fluid">
         <!-- notification message -->
-       
-          <!-- <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <span class="alert-inner--icon"><i class="ni ni-like-2"></i></span>
-            
-         
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div> -->
-       
-        
       
-      
+      <Header/>
     </div>
     </div>
 
@@ -39,7 +26,7 @@
               <h5 class="mb-0">HostelCleaner Feedback</h5>
             </div>
             <div class="card-body pb-5">
-              <form method="POST" autocomplete="off" action="studenthandler.php">
+              <form method="POST" autocomplete="off" action="">
                 <div class="pl-lg-4">
                   <div class="row">
                     <div class="col-md-6">
@@ -104,7 +91,7 @@
       </div>
     </div>
     </div>
-  </body>
+ 
   </div>
 
 
@@ -115,12 +102,17 @@
 </template>
 
 <script>
+import userSideBar from './userSideBar.vue';
+
+import Header from './Header.vue'
+
 
 export default{
     name:'userFeedback',
   components:{
-    
-  }
+    userSideBar, 
+    Header
+}
 
 }
 

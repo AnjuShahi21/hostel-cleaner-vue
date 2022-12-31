@@ -2,6 +2,7 @@
     <div>
         <title>Student Profile - Housekeeper Student Dashboard</title>
         <body>
+          <userSideBar/>
 
        
         <div class="main-content">
@@ -9,10 +10,8 @@
       <div class="header bg-background pb-6 pt-5 pt-md-6">
       <div class="container-fluid">
        
-          <!-- require("headerstats.php"); 
-          $student = getStudent($_SESSION['rollnumber'], $db); 
-        ?> -->
       
+      <Header/>
       </div>
     </div>
     <!-- Page content -->
@@ -46,11 +45,11 @@
                   </tr>
                   <tr>
                     <th scope="row">Floor</th>
-                    <!-- <td><?php echo $student['floor']; ?></td> -->
+                  
                   </tr>
                   <tr>
                     <th scope="row">Room No.</th>
-                    <!-- <td><?php echo strtoupper($student['room']); ?></td> -->
+                    
                   </tr>
                 </tbody>
               </table>
@@ -65,9 +64,15 @@
 
 </template>
 <script>
+import userSideBar from './userSideBar.vue';
+
+import Header from './Header.vue'
 
 export default{
     name:'userProfile',
+    userSideBar,
+    Header
+
     
 }
 
