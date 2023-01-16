@@ -14,10 +14,7 @@
 <script>
 export default {
   name: 'AppVue',
-  components: {
-   AppVue
-
-  }
+  
 }
 </script>
 
