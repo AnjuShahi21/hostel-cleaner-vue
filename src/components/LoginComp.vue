@@ -2,8 +2,8 @@
     <div>
         <LoadingOverlay :active="isLoading" />
         <AlertComp :error="error" :hideAlert="hideAlert" />
-        <form class="bg bg-white mx-auto my-4 rounded border" style="max-width: 22rem;" @submit.prevent="loginUser">
-            <h3 class="bg bg-primary w-100 px-3 py-2 text text-white">Sign In</h3>
+        <form class="bg bg-white mx-auto my-4 rounded border" style="max-width: 25rem;" @submit.prevent="loginUser">
+            <h3 class="bg bg-secondary w-100 px-3 py-2 text text-white">Login</h3>
             <div class="p-3">
 
                 <div class="mb-3" v-for="e in formDatas" :key="e.id">
@@ -13,13 +13,13 @@
                 </div>
                 <div class="mb-2">
                     <div class="form-text small"><a href="/sessions/forgot_password">forgot password</a></div>
-                    <div class="form-text small"><router-link to="/register">Not a member | Sign Up</router-link></div>
+                    <div class="form-text small"><router-link to="/register">Not a member | Register</router-link></div>
                 </div>
-                <div class="mb-3 form-check">
+                <div class="mb-2 form-check">
                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
                     <label class="form-text" for="exampleCheck1">Check me out</label>
                 </div>
-                <button type="submit" class="btn btn-success">Sign In</button>
+                <button type="submit" class="my-2 btn btn-success">Login</button>
             </div>
         </form>
     </div>
@@ -35,8 +35,8 @@ export default {
     data() {
         return {
             formDatas: [
-                { label: "Email", type: "text", placeholder: "Enter Email", isRequired: true, id: "email", model: "email" },
-                { label: "Password", type: "password", placeholder: "Enter Password", isRequired: true, id: "pass", model: "password" },
+                { label: "Email", type: "text", placeholder: "Enter your Email", isRequired: true, id: "email", model: "email" },
+                { label: "Password", type: "password", placeholder: "Enter your Password", isRequired: true, id: "pass", model: "password" },
             ],
             formData: {
                 email: "",
@@ -50,15 +50,16 @@ export default {
         async loginUser() {
             this.isLoading = true;
             try {
-                const res = await login(this.formData);
-                const data = res.data;
-                if (!res) {
+                const data = await login(this.formData);
+                // const data = res.data;
+                if (!data) {
                     throw new Error("No user found");
                 }
                 console.log(data)
-                localStorage.setItem("isUserExist", data.token);
+                localStorage.setItem("token", JSON.stringify({token: data.token}));
+                localStorage.setItem("userType", JSON.stringify({"type": "student"}));
                 localStorage.setItem("userData", JSON.stringify(data));
-                this.$router.push("/addashboard");
+                this.$router.push("/usdash");
             }
             catch (e) {
                 this.error = true;
