@@ -1,6 +1,6 @@
 <template>
   <div>
-    <title>Register Student - Housekeeper Admin Dashboard</title>
+    <title>Register Student - HostelCleaner Admin Dashboard</title>
 
   <!-- side navigation -->
   <Sidebar/>
@@ -10,9 +10,10 @@
     <!-- Header -->
     <div class="header bg-background pb-6 pt-5 pt-md-6">
       <div class="container-fluid">
-        <Header/>
-       
-      </div>
+
+<b-alert show variant="success"><span class="alert-link"><strong>  Welcome to online Hostel Cleaner admin portal.</strong></span></b-alert>
+<Header />
+</div>
     </div>
     <!-- Page content -->
     <div class="container-fluid mt--5 pb-6">
@@ -76,6 +77,10 @@ export default {
   Sidebar,
   Header
 
+  },
+  mounted() {
+    localStorage.setItem('userType', JSON.stringify({ type: 'admin' }));
+  
   }
 
 }
