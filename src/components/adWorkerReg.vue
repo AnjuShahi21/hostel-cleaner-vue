@@ -1,13 +1,16 @@
 <template>
     <div>
-        <title>Register HouseKeeper - Housekeeper Admin Dashboard</title>
-        <Sidebar/>
-        
+        <title>Register HostelCleaner - HostelCleaner Admin Dashboard</title>
+        <Sidebar />
+
         <div class="main-content">
             <!-- Header -->
             <div class="header bg-background pb-6 pt-5 pt-md-6">
                 <div class="container-fluid">
-                   <Header/>
+
+                    <b-alert show variant="success"><span class="alert-link"><strong> Welcome to online Hostel Cleaner
+                                admin portal.</strong></span></b-alert>
+                    <Header />
                 </div>
             </div>
             <!-- Page content -->
@@ -60,14 +63,16 @@
 import Sidebar from './Sidebar.vue'
 import Header from './Header.vue'
 
-export default{
-    name:'AdminWorkReg',
-    components:{
+export default {
+    name: 'AdminWorkReg',
+    components: {
         Sidebar,
         Header
-        
-
-    }
+    },
+    mounted() {
+    localStorage.setItem('userType', JSON.stringify({ type: 'admin' }));
+  
+  }
 }
 </script>
 <style>
