@@ -1,6 +1,6 @@
 <template>
   <div>
-    <title>HostelCleaner Admin Dashboard</title>
+    <title>HostelCleaner Student Dashboard</title>
 
     <!-- side navigation -->
     <Sidebar />
@@ -43,6 +43,23 @@
                     </tr>
                   </thead>
                   <tbody>
+                    <tr v-for="item in userData" :key="item.id">                    
+                      <td>{{ item.cleaner_name}}
+                      </td>
+                      <td>
+                        {{ item.date}}
+                      </td>
+                      <td>
+                        {{ item.cleaning_time}}
+                      </td>
+                      <td>
+                        {{ item.timein }}
+                      </td>
+                      <td>
+                        {{ item.timeout }}
+                      </td>
+                    </tr>
+
                   </tbody>
                 </table>
               </div>
@@ -53,31 +70,35 @@
     </div>
 
   </div>
-
-
-
-
 </template>
 <script>
 import Sidebar from './Sidebar.vue'
 import Header from './Header.vue'
+import { getSuggestion } from "@/services/api";
 
 export default {
   name: "userDashVue",
   components: {
     Sidebar,
     Header
-
-
   },
-  mounted() {
-    localStorage.setItem('userType', JSON.stringify({ type: 'student' }));
-  
-  }
-}
+  data() {
+    return {
+      userData: null
+    };
+   
+  },
 
-
+  async mounted() {
+    try {
+      const data = await getSuggestion();
+      console.log(data);
+      this.userData = data;
+    } catch (e) {
+      console.log(e.message);
+    }
+  },
+};
+ 
 </script>
-<style>
 
-</style>

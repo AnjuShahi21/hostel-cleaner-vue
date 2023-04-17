@@ -12,6 +12,17 @@ import userDash from '../components/userDash.vue';
 import LoginComp from '../components/LoginComp.vue';
 import RegistrationComp from '../components/RegistrationComp.vue';
 
+function loginCheck(to, from, next) {
+    let loginStatus = JSON.parse(localStorage.getItem('token'));
+    let userType = (loginStatus && (JSON.parse(localStorage.getItem("userType")))['type']);
+
+    // If loggedIn -> Go to Dashboard
+    if (loginStatus) {
+        return next(userType === 'student' ? '/usdash' : '/addashboard');
+    }
+    next();
+}
+
 function checkaddash(to, from, next) {
     let loginStatus = JSON.parse(localStorage.getItem('token'));
     let isAdmin = (loginStatus && (JSON.parse(localStorage.getItem("userType")))['type'] === 'admin');
@@ -26,16 +37,6 @@ function checkusdash(to, from, next) {
 
     if (!isStudent) {
         return next('/login');
-    }
-    next();
-}
-function loginCheck(to, from, next) {
-    let loginStatus = JSON.parse(localStorage.getItem('token'));
-    let userType = (loginStatus && (JSON.parse(localStorage.getItem("userType")))['type']);
-
-    // If loggedIn -> Go to Dashboard
-    if (loginStatus) {
-        return next(userType === 'student' ? '/usdash' : '/addashboard');
     }
     next();
 }
@@ -54,10 +55,12 @@ const router = new Router({
             name: 'register',
             path: '/register',
             component: RegistrationComp,
-            beforeEnter: loginCheck
+
 
         },
+
         { path: '/', redirect: '/login' },
+
         {
 
             name: 'addashboard',
@@ -82,6 +85,7 @@ const router = new Router({
             path: '/adsuggest',
             component: adSuggest,
             beforeEnter: checkaddash
+
         },
         {
             name: 'adstudregis',

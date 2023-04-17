@@ -1,17 +1,19 @@
 <template>
   <div>
     <title>Suggestions - HostelCleaner Admin Dashboard</title>
-
-
     <Sidebar />
 
     <div class="main-content">
       <!-- Header -->
       <div class="header bg-background pb-6 pt-5 pt-md-6">
         <div class="container-fluid">
-
-          <b-alert show variant="success"><span class="alert-link"><strong> Welcome to online Hostel Cleaner admin
-                portal.</strong></span></b-alert>
+          <b-alert show variant="success"
+            ><span class="alert-link"
+              ><strong>
+                Welcome to online Hostel Cleaner admin portal.</strong
+              ></span
+            ></b-alert
+          >
           <Header />
         </div>
       </div>
@@ -29,7 +31,7 @@
               </div>
               <div class="table-responsive">
                 <!-- Projects table -->
-                <table class="table align-items-center table-flush">
+                <table v-if="userData" class="table align-items-center table-flush">
                   <thead class="thead-light">
                     <tr>
                       <th scope="col">Hostel Cleaner</th>
@@ -39,7 +41,19 @@
                     </tr>
                   </thead>
                   <tbody>
-
+                    <tr v-for="item in userData" :key="item.id">                    
+                      <td>{{ item.cleaner_name}}
+                      </td>
+                      <td>
+                        {{ item.room}}
+                      </td>
+                      <td>
+                        {{ item.date}}
+                      </td>
+                      <td>
+                        {{ item.suggestion }}
+                      </td>
+                    </tr>
 
                   </tbody>
                 </table>
@@ -49,31 +63,37 @@
         </div>
       </div>
     </div>
-
-
   </div>
-
 </template>
 
 <script>
-import Sidebar from './Sidebar.vue'
-import Header from './Header.vue'
+import Sidebar from "./Sidebar.vue";
+import Header from "./Header.vue";
+import { getSuggestion } from "@/services/api";
 
 export default {
-  name: 'AdminSuggest',
+  name: "AdminSuggest",
   components: {
     Sidebar,
-    Header
-
+    Header,
   },
-  mounted() {
-    localStorage.setItem('userType', JSON.stringify({ type: 'admin' }));
-  
-  }
-}
+  data() {
+    return {
+      userData: null
+    };
+   
+  },
 
+  async mounted() {
+    try {
+      const data = await getSuggestion();
+      console.log(data);
+      this.userData = data;
+    } catch (e) {
+      console.log(e.message);
+    }
+  },
+};
 </script>
-
 <style>
-
 </style>

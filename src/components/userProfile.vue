@@ -38,6 +38,10 @@
                     </tr>
                   </thead>
                   <tbody>
+                      <tr>
+                      <th scope="row">Student Name</th>
+                      <td>{{ userData.name ? userData.name : 'null' }}</td>
+                    </tr>
                     <tr>
                       <th scope="row">Hostel Name</th>
                       <td>{{ userData.hostel ? userData.hostel : 'null' }}</td>
@@ -87,8 +91,6 @@ export default {
     } catch (e) {
       console.log(e.message);
     }
-
-    // localStorage.setItem('userType', JSON.stringify({ type: 'student' }));
 
   }
 

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="header-body ">
+    <div class="header-body ">
   <!-- Card stats -->
   <div class="row">
     <div class="col-lg-4 col-md-6">
@@ -9,7 +9,7 @@
           <div class="row">
             <div class="col">
               <h5 class="card-title text-uppercase text-muted mb-0">Clean Requests</h5>
-            <span class="h2 font-weight-bold mb-0">  </span> 
+            <span class="h2 font-weight-bold mb-0"></span> 
             </div>
             <div class="col-auto">
               <div class="icon icon-shape bg-primary text-white rounded-circle shadow">
@@ -68,12 +68,8 @@
     </div>
   </div>
 </div>
-
-    </div>
-
-
+</div>
 </template>
-
 <script>
 export default{
     name:'HeaderApp'
@@ -91,9 +87,4 @@ export default{
   margin-right:20px;
   margin-left: 20px;
 }
-
-
-
-
-
 </style>

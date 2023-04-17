@@ -76,12 +76,7 @@ export default {
   components:{
   Sidebar,
   Header
-
   },
-  mounted() {
-    localStorage.setItem('userType', JSON.stringify({ type: 'admin' }));
-  
-  }
 
 }
 

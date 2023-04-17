@@ -43,7 +43,7 @@ export default {
                 password: ""
             },
             isLoading: false,
-            error: false
+            error:false
         };
     },
     methods: {
@@ -51,18 +51,18 @@ export default {
             this.isLoading = true;
             try {
                 const data = await login(this.formData);
-                // const data = res.data;
                 if (!data) {
                     throw new Error("No user found");
                 }
                 console.log(data)
                 localStorage.setItem("token", JSON.stringify({token: data.token}));
-                localStorage.setItem("userType", JSON.stringify({"type": "student"}));
+                localStorage.setItem("userType", JSON.stringify({"type": data._doc.userType}));
                 localStorage.setItem("userData", JSON.stringify(data));
-                this.$router.push("/usdash");
+                this.userType=data._doc.userType
+                this.$router.push(this.userType === 'student' ? '/usdash' : '/addashboard');
             }
             catch (e) {
-                this.error = true;
+                this.error =true;
                 console.log("Error:", e.message);
             }
             this.isLoading = false;

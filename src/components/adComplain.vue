@@ -30,7 +30,7 @@
               </div>
               <div class="table-responsive">
                 <!-- Projects table -->
-                <table class="table align-items-center table-flush">
+                <table v-if="userData" class="table align-items-center table-flush">
                   <thead class="thead-light">
                     <tr>
                       <th scope="col">HostelCleaner</th>
@@ -40,7 +40,19 @@
                     </tr>
                   </thead>
                   <tbody>
-
+                    <tr v-for="item in userData" :key="item.id">                    
+                      <td>{{ item.cleaner_name}}
+                      </td>
+                      <td>
+                        {{ item.room}}
+                      </td>
+                      <td>
+                        {{ item.date}}
+                      </td>
+                      <td>
+                        {{ item.complaint }}
+                      </td>
+                    </tr>
 
                   </tbody>
                 </table>
@@ -61,6 +73,8 @@
 <script>
 import Sidebar from './Sidebar.vue'
 import Header from './Header.vue'
+import { getComplaint} from "@/services/api";
+
 
 export default {
   name: 'AdminComplain',
@@ -69,14 +83,22 @@ export default {
     Header
 
   },
-  mounted() {
-    localStorage.setItem('userType', JSON.stringify({ type: 'admin' }));
+  data() {
+    return {
+      userData: null
+    };
+   
+  },
+
+  async mounted() {
+    try {
+      const data = await getComplaint();
+      console.log(data);
+      this.userData = data;
+    } catch (e) {
+      console.log(e.message);
+    }
+  },
+};
   
-  }
-}
-
 </script>
-
-<style>
-
-</style>

@@ -75,11 +75,6 @@
               <i class="ni ni-bulb-61"></i>Suggestions
             </b-nav-item>
           </li>
-          <li>
-            <b-nav-item v-if="userType === 'admin'" to="/adstudregis">
-              <i class="ni ni-single-02"></i>Register Student
-            </b-nav-item>
-          </li>
 
           <li>
             <b-nav-item v-if="userType === 'admin'" to="/adworkreg">
