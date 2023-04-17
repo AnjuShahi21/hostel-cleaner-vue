@@ -1,7 +1,7 @@
 
-// const baseURL = `https://hostel-cleaner-backend.onrender.com`;
+const baseURL = `https://hostel-cleaner-backend.onrender.com`;
 
-const baseURL = `http://localhost:3000`;
+// const baseURL = `http://localhost:3000`;
 
 export const register  = async (body) => {
     const res = await fetch(`${baseURL}/auth/register`, {
