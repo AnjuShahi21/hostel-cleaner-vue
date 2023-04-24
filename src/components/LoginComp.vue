@@ -54,7 +54,6 @@ export default {
                 if (!data) {
                     throw new Error("No user found");
                 }
-                console.log(data)
                 localStorage.setItem("token", JSON.stringify({token: data.token}));
                 localStorage.setItem("userType", JSON.stringify({"type": data._doc.userType}));
                 localStorage.setItem("userData", JSON.stringify(data));

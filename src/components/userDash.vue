@@ -1,6 +1,9 @@
 <template>
   <div>
     <title>HostelCleaner Student Dashboard</title>
+    
+    <LoadingOverlay :active="loading" />
+    <AlertComp :error="error" />
 
     <!-- side navigation -->
     <Sidebar />
@@ -9,7 +12,7 @@
     <!-- Main content -->
     <div class="main-content">
       <!-- Header -->
-      <div class="header bg-background pb-6 pt-5 pt-md-6">
+      <div class="header bg-background pb-5 pt-5 pt-md-6">
         <div class="container-fluid">
 
           <b-alert show variant="success"><span class="alert-link"><strong>Welcome to HostelCleaner's Student
@@ -18,7 +21,7 @@
           </div>
       </div>
       <!-- Page content -->
-      <div class="container-fluid mt--5">
+      <div class="container-fluid mt-5" v-if="userData">
         <div class="row mt-2 pb-5">
           <div class="col-xl-12 mb-5 mb-xl-0">
             <div class="card shadow">
@@ -67,6 +70,7 @@
           </div>
         </div>
       </div>
+      <div v-else class="h4 mt-5 text-center">No data found</div>
     </div>
 
   </div>
@@ -75,28 +79,36 @@
 import Sidebar from './Sidebar.vue'
 import Header from './Header.vue'
 import { getSuggestion } from "@/services/api";
+import LoadingOverlay from './LoadingOverlay.vue';
+import AlertComp from './AlertComp.vue';
 
 export default {
   name: "userDashVue",
   components: {
     Sidebar,
-    Header
-  },
+    Header,
+    LoadingOverlay,
+    AlertComp
+},
   data() {
     return {
-      userData: null
+      userData: null,
+      loading: false,
+      error: false
     };
    
   },
 
   async mounted() {
+    this.loading = true;
     try {
       const data = await getSuggestion();
-      console.log(data);
       this.userData = data;
     } catch (e) {
+      this.error = true;
       console.log(e.message);
     }
+    this.loading = false;
   },
 };
  

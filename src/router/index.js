@@ -14,13 +14,14 @@ import RegistrationComp from '../components/RegistrationComp.vue';
 
 function loginCheck(to, from, next) {
     let loginStatus = JSON.parse(localStorage.getItem('token'));
-    let userType = (loginStatus && (JSON.parse(localStorage.getItem("userType")))['type']);
 
-    // If loggedIn -> Go to Dashboard
-    if (loginStatus) {
-        return next(userType === 'student' ? '/usdash' : '/addashboard');
+    if(!loginStatus || Object.keys(loginStatus).length === 0) {
+        return next();
     }
-    next();
+
+    let userType = (loginStatus && (JSON.parse(localStorage.getItem("userType")))['type']);
+    // If loggedIn -> Go to Dashboard
+    next(userType === 'student' ? '/usdash' : '/addashboard');
 }
 
 function checkaddash(to, from, next) {
@@ -43,6 +44,7 @@ function checkusdash(to, from, next) {
 
 
 const router = new Router({
+    linkActiveClass: 'active',
     routes: [
         {
             name: 'login',
@@ -62,7 +64,6 @@ const router = new Router({
         { path: '/', redirect: '/login' },
 
         {
-
             name: 'addashboard',
             path: '/addashboard',
             component: adDash,

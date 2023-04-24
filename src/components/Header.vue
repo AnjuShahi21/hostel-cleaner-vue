@@ -15,6 +15,7 @@
               <div class="icon icon-shape bg-primary text-white rounded-circle shadow">
                 <i class="fas fa-chart-bar"></i>
               </div>
+               <span class="ml-2 h5">{{requestsCount || "__" }}</span>
             </div>
           </div>
           <p class="mt-3 mb-0 text-muted text-sm">
@@ -36,6 +37,10 @@
               <div class="icon icon-shape bg-primary text-white rounded-circle shadow">
                 <i class="far fa-file-alt"></i>
               </div>
+              <span class="ml-2 h5">{{suggestionsCount || "__" }}</span>
+            
+
+
             </div>
           </div>
           <p class="mt-3 mb-0 text-muted text-sm">
@@ -57,6 +62,7 @@
               <div class="icon icon-shape bg-primary text-white rounded-circle shadow">
                 <i class="fas fa-chart-pie"></i>
               </div>
+               <span class="ml-2 h5">{{complaintsCount || "__" }}</span>
             </div>
           </div>
           <p class="mt-3 mb-0 text-muted text-sm">
@@ -71,9 +77,37 @@
 </div>
 </template>
 <script>
+import {getRequests, getComplaint, getSuggestion } from '@/services/api';
 export default{
-    name:'HeaderApp'
+    name:'HeaderApp',
+    data()
+    {
+      return {
+         suggestionsCount:null,
+         requestsCount:null,
+         complaintsCount:null
+        
+      }
+    },
+    async mounted() {
+    try {
+      let data = await getSuggestion();
+      this.suggestionsCount = data.length;
+       data = await getComplaint();
+      this.complaintsCount = data.length;
+      data = await getRequests();
+      this.requestsCount = data.length;
+     
+    } catch (e) {
+      console.log(e.message);
+    }
+  },
+
 }
+
+
+
+
 
 </script>
 <style>

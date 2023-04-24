@@ -8,7 +8,7 @@
     <!-- Main content -->
     <div class="main-content">
       <!-- Header -->
-      <div class="header bg-background pb-6 pt-5 pt-md-6">
+      <div class="header bg-background pb-5 pt-5 pt-md-6">
         <div class="container-fluid">
           <b-alert show variant="success"
             ><span class="alert-link"
@@ -22,7 +22,7 @@
       </div>
 
       <!-- Page content -->
-      <div class="container-fluid mt--5 pb-6">
+      <div class="container-fluid mt-5 pb-6" v-if="formData.cleaner.length != 0">
         <div class="row mt-2">
           <div class="col-xl-12 order-xl-1">
             <div class="card bg-light shadow">
@@ -41,10 +41,18 @@
                             >Cleaner_name
                             <span class="text-danger">*</span></label
                           >
-                          <select
+                          <input
+                            type="text"
+                            name="cleaner_name"
+                            id="input-id"
+                            class="form-control"
+                            :value="formData.cleaner.name"
+                            disabled
+                          />
+                          <!-- <select
                             name="feedCleanername"
                             class="form-control"
-                            v-model="formData.cleaner_name"
+                            v-model="formData.cleaner_id"
                             id="input-cleaner_name"
                             required
                           >
@@ -60,9 +68,9 @@
                             <option value="Shyam">3-Shyam</option>
                             <option value="Mohan">4-Mohan</option>
                             <option value="Ram">5-Ram</option>
-                            <option value="sohan">6-Sohan</option>
+                            <option value="34321234321">6-Sohan</option>
                             <option value="Mala">7-Mala</option>
-                          </select>
+                          </select> -->
                         </div>
                       </div>
                       <div class="col-md-6">
@@ -110,6 +118,7 @@
                             id="input-cleaning_time"
                             class="form-control form-control-alternative"
                             required
+                            disabled
                           />
                         </div>
                       </div>
@@ -194,6 +203,12 @@
           </div>
         </div>
       </div>
+      <div v-else class="d-flex flex-column align-items-center mt-5">
+        <p>No request find</p>
+        <router-link to="/usrequest">
+          <button class="btn btn-icon btn-3 btn-primary">Create Request</button>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -203,20 +218,22 @@ import AlertComp from "./AlertComp.vue";
 import LoadingOverlay from "./LoadingOverlay.vue";
 import Sidebar from "./Sidebar.vue";
 import Header from "./Header.vue";
-import { sendFeedback } from "@/services/api";
+import { getUserWiseApprovedCleaner, sendFeedback } from "@/services/api";
 
 export default {
   name: "userFeedback",
   data() {
     return {
       formData: {
-        cleaner_name: "",
+        cleaner: [],
         rating: "",
         req_id: "",
         timein: "",
         timeout: "",
         suggestion: "",
         complaint: "",
+        cleaner_id: '',
+        cleaning_time: ""
       },
       isLoading: false,
       error: false,
@@ -238,22 +255,23 @@ export default {
         this.formData.room = JSON.parse(localStorage.getItem("userData"))[
           "_doc"
         ]["room"];
-        console.log(JSON.parse(localStorage.getItem("userData")));
-        console.log(this.formData);
+        this.formData['roll_no'] = JSON.parse(localStorage.getItem("userData"))[
+          "_doc"
+        ]["roll_no"];
+        this.formData.cleaner_id = this.formData.cleaner.cleaner_id;
         const data = await sendFeedback(this.formData);
-        // const data = res.data;
         if (!data) {
           throw new Error("No user found");
         }
-        console.log(data);
-        (this.formData.cleaner_name = ""),
-          (this.formData.rating = ""),
-          (this.formData.req_id = ""),
-          (this.formData.timein = ""),
-          (this.formData.timeout = ""),
-          (this.formData.suggestion = ""),
-          (this.formData.complaint = ""),
-          (this.success = true);
+        this.formData.cleaner = [],
+        this.formData.rating = "";
+        this.formData.req_id = "";
+        this.formData.timein = "";
+        this.formData.timeout = "";
+        this.formData.suggestion = "";
+        this.formData.complaint = "";
+        this.formData.cleaning_time = "";
+        this.success = true;
       } catch (e) {
         this.error = true;
         console.log("Error:", e.message);
@@ -265,6 +283,23 @@ export default {
       this.success = false;
     },
   },
+  async mounted() {
+    const roll_no = JSON.parse(localStorage.getItem("userData"))[
+          "_doc"
+        ]["roll_no"];
+    try {
+      this.formData.cleaner = await getUserWiseApprovedCleaner({roll_no});
+      if(!this.formData.cleaner) {
+        throw new Error();
+      }
+      this.formData.cleaning_time = this.formData.cleaner.cleaning_time;
+    } catch(e) {
+      if(!this.formData.cleaner) {
+        this.formData.cleaner = [];
+      }
+    }
+
+  }
 };
 </script>
 <style>

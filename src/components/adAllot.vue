@@ -8,7 +8,7 @@
     <Sidebar />
     <div class="main-content">
       <!-- Header -->
-      <div class="header bg-background pb-6 pt-5 pt-md-6">
+      <div class="header bg-background pb-5 pt-5 pt-md-6">
         <div class="container-fluid">
           <b-alert show variant="success"
             ><span class="alert-link"
@@ -21,7 +21,7 @@
         </div>
       </div>
       <!-- Page content -->
-      <div class="container-fluid mt--5 pb-6">
+      <div class="container-fluid mt-5 pb-6">
         <div class="row mt-2">
           <div class="col-xl-12 order-xl-1">
             <div class="card bg-light shadow">
@@ -37,13 +37,23 @@
                           <label class="form-control-label" for="input-id"
                             >Roll No</label
                           >
-                          <input
-                            type="text"
-                            name="rollno"
-                            v-model="formData.rollno"
-                            id="input-id"
+                          <select
                             class="form-control"
-                          />
+                            v-model="formData.roll_no"
+                            @change="getRequestData()"
+                            required
+                          >
+                            <option
+                              selected="true"
+                              value="Select Roll Number"
+                              disabled="disabled"
+                            >
+                              Select Roll Number
+                            </option>
+                            <option v-for="(request, index) in requests" :key="index" :value="request.roll_no">
+                              {{ request.roll_no }}
+                            </option>
+                          </select>
                         </div>
                       </div>
                       <div class="col-md-3">
@@ -57,6 +67,7 @@
                             v-model="formData.room"
                             id="input-room"
                             class="form-control"
+                            disabled
                           />
                         </div>
                       </div>
@@ -71,10 +82,11 @@
                           <input
                             name="feedcleaning_time"
                             type="time"
-                            v-model="formData.cleaning_time"
+                            v-model="formData.cleaningTime"
                             id="input-cleaning_time"
                             class="form-control form-control-alternative"
                             required
+                            disabled
                           />
                         </div>
                       </div>
@@ -100,13 +112,9 @@
                             >
                               Select Option
                             </option>
-                            <option value="1">1-Rani</option>
-                            <option value="2">2-Geeta</option>
-                            <option value="3">3-Shyam</option>
-                            <option value="4">4-Mohan</option>
-                            <option value="5">5-Ram</option>
-                            <option value="6">6-Sohan</option>
-                            <option value="7">7-Mala</option>
+                            <option v-for="(cleaner, index) in availableCleaners" :key="index" :value="cleaner.cleaner_id">
+                              {{ cleaner.name }}
+                            </option>
                           </select>
                         </div>
                       </div>
@@ -133,7 +141,8 @@ import AlertComp from "./AlertComp.vue";
 import LoadingOverlay from "./LoadingOverlay.vue";
 import Sidebar from "./Sidebar.vue";
 import Header from "./Header.vue";
-import { allotCleaner } from "../services/api";
+import { allotCleaner, getFreeCleaners, getPendingRequests } from "../services/api";
+import { getRequest } from "../services/api";
 
 export default {
   name: "AllotworkerApp",
@@ -144,10 +153,13 @@ export default {
         room: "",
         cleaningTime: "",
         cleaner_id: "",
+        roll_no: ""
       },
       isLoading: false,
       error: false,
       success: false,
+      requests: [],
+      availableCleaners: []
     };
   },
   components: {
@@ -161,27 +173,43 @@ export default {
       this.isLoading = true;
       try {
         const res = await allotCleaner(this.formData);
-        const data = res.data;
         if (!res) {
           throw new Error("Not save");
         }
-        console.log(data);
-
+        this.success = true;
         this.formData.req_id = "";
         this.formData.room = "";
         this.formData.cleaningTime = "";
         this.formData.cleaner_id = "";
       } catch (e) {
         this.error = true;
-        console.log("Error:", e.message);
       }
       this.isLoading = false;
+      await this.getDefaultData();
     },
     hideAlert() {
       this.error = false;
       this.success = false;
     },
+    async getRequestData() {
+      const request = await getRequest({roll_no: this.formData.roll_no});
+      this.formData.cleaningTime = request["cleaningTime"];
+      this.formData.room = request["room"];
+    },
+    async getDefaultData() {
+      this.isLoading = true;
+      try {
+        this.requests = await getPendingRequests();
+        this.availableCleaners = await getFreeCleaners();
+      } catch(e) {
+        this.error = true;
+      }
+      this.isLoading = false;
+    }
   },
+  async mounted() {
+    await this.getDefaultData();
+  }
 };
 </script>
 

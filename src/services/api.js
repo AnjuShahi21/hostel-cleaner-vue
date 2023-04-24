@@ -1,109 +1,54 @@
-
-const baseURL = `https://hostel-cleaner-backend.onrender.com`;
-
-// const baseURL = `http://localhost:3000`;
+const baseURL = process.env.VUE_APP_BACKEND_URL
 
 export const register  = async (body) => {
     const res = await fetch(`${baseURL}/auth/register`, {
-
-        // Adding method type
         method: "POST",
-
-        // Adding body or contents to send
         body: JSON.stringify(body),
-
-        // Adding headers to the request
         headers: {
             "Content-type": "application/json; charset=UTF-8"
         }
        
     })
-
     const data = await res.json();
-    console.log(data);
-
-
-    // const res = await axios.post(`${baseURL}/auth/login`, formData);
-    // const data = res.data;
     return data;
 }
 
 export const login  = async (body) => {
     const res = await fetch(`${baseURL}/auth/login`, {
-
-        // Adding method type
         method: "POST",
-
-        // Adding body or contents to send
         body: JSON.stringify(body),
-
-        // Adding headers to the request
         headers: {
             "Content-type": "application/json; charset=UTF-8"
         }
     })
-
     const data = await res.json();
-    console.log(data);
-
-
-    // const res = await axios.post(`${baseURL}/auth/login`, formData);
-    // const data = res.data;
     return data;
 }
-
-
-
 
 
 export const sendRequest = async (body) => {
     const token = (JSON.parse(localStorage.getItem('token')))['token']
     const res = await fetch(`${baseURL}/user/sendRequest`, {
-        // Adding method type
         method: "POST",
-
-        // Adding body or contents to send
         body: JSON.stringify(body),
-
-        // Adding headers to the request
         headers: {
             'Authorization': 'Bearer '+ token,
             "Content-type": "application/json; charset=UTF-8"
         }
        
     })
-
-    const data = await res.json();
-    console.log(data);
-
-
-    // const res = await axios.post(`${baseURL}/auth/login`, formData);
-    // const data = res.data;
-    return data;
+    return res;
 }
 
 export const requestComplete = async (body) => {
     const res = await fetch(`${baseURL}/admin/requestComplete`, {
-
-        // Adding method type
         method: "POST",
-
-        // Adding body or contents to send
         body: JSON.stringify(body),
-
-        // Adding headers to the request
         headers: {
             "Content-type": "application/json; charset=UTF-8"
         }
-       
     })
-
     const data = await res.json();
-    console.log(data);
-
-
-    // const res = await axios.post(`${baseURL}/auth/login`, formData);
-    // const data = res.data;
     return data;
 }
 
@@ -111,14 +56,8 @@ export const requestComplete = async (body) => {
 export const sendFeedback = async (body) => {
     const token = (JSON.parse(localStorage.getItem('token')))['token']
     const res = await fetch(`${baseURL}/user/sendFeedback`,  {
-
-        // Adding method type
         method: "POST",
-
-        // Adding body or contents to send
         body: JSON.stringify(body),
-
-        // Adding headers to the request
         headers: {
             'Authorization': 'Bearer '+ token,
             "Content-type": "application/json; charset=UTF-8"
@@ -127,53 +66,29 @@ export const sendFeedback = async (body) => {
     })
 
     const data = await res.json();
-    console.log(data);
-
-
-    // const res = await axios.post(`${baseURL}/auth/login`, formData);
-    // const data = res.data;
     return data;
 }
 
 export const addNewCleaner = async (body) => {
     const token = (JSON.parse(localStorage.getItem('token')))['token']
     const res = await fetch(`${baseURL}/admin/addNewCleaner`,  {
-
-        // Adding method type
         method: "POST",
-
-        // Adding body or contents to send
         body: JSON.stringify(body),
-
-        // Adding headers to the request
         headers: {
             'Authorization': 'Bearer '+ token,
             "Content-type": "application/json; charset=UTF-8"
         }
        
     })
-
-    const data = await res.json();
-    console.log(data);
-
-
-    // const res = await axios.post(`${baseURL}/auth/login`, formData);
-    // const data = res.data;
-    return data;
+    return res;
 }
 
 
 export const allotCleaner = async (body) => {
     const token = (JSON.parse(localStorage.getItem('token')))['token']
     const res = await fetch(`${baseURL}/admin/allotCleaner`, {
-
-        // Adding method type
         method: "POST",
-
-        // Adding body or contents to send
         body: JSON.stringify(body),
-
-        // Adding headers to the request
         headers: {
             'Authorization': 'Bearer '+ token,
             "Content-type": "application/json; charset=UTF-8"
@@ -182,21 +97,27 @@ export const allotCleaner = async (body) => {
     })
 
     const data = await res.json();
-    console.log(data);
-
-
-    // const res = await axios.post(`${baseURL}/auth/login`, formData);
-    // const data = res.data;
     return data;
 }
 
 export const getDashboard = async () => {
     const token = (JSON.parse(localStorage.getItem('token')))['token']
-    console.log(token);
-
     const res = await fetch(`${baseURL}/user/getDashboard`, {
+        headers: {
+            'Authorization': 'Bearer '+ token, 
+            "Content-type": "application/json; charset=UTF-8"
+        }
+       
+    })
+    const data = await res.json();
+    return data;
+}
 
-        // Adding headers to the request
+export const getUserWiseApprovedCleaner = async (body) => {
+    const token = (JSON.parse(localStorage.getItem('token')))['token']
+    const res = await fetch(`${baseURL}/user/getUserWiseApprovedCleaner`, {
+        method: "POST",
+        body: JSON.stringify(body),
         headers: {
             'Authorization': 'Bearer '+ token, 
             "Content-type": "application/json; charset=UTF-8"
@@ -205,17 +126,12 @@ export const getDashboard = async () => {
     })
 
     const data = await res.json();
-    console.log(data);
     return data;
 }
 
 export const getSuggestion = async () => {
     const token = (JSON.parse(localStorage.getItem('token')))['token']
-    console.log(token);
-
     const res = await fetch(`${baseURL}/admin/getSuggestion`, {
-
-        // Adding headers to the request
         headers: {
             'Authorization': 'Bearer '+ token, 
             "Content-type": "application/json; charset=UTF-8"
@@ -224,16 +140,39 @@ export const getSuggestion = async () => {
     })
 
     const data = await res.json();
-    console.log(data);
+   return data;
+}
+
+export const getPendingRequests = async () => {
+    const token = (JSON.parse(localStorage.getItem('token')))['token']
+    const res = await fetch(`${baseURL}/admin/getPendingRequests`, {
+        headers: {
+            'Authorization': 'Bearer '+ token, 
+            "Content-type": "application/json; charset=UTF-8"
+        }
+       
+    })
+    const data = await res.json();
+    return data;
+}
+
+export const getFreeCleaners = async () => {
+    const token = (JSON.parse(localStorage.getItem('token')))['token']
+    const res = await fetch(`${baseURL}/admin/getFreeCleaners`, {
+        headers: {
+            'Authorization': 'Bearer '+ token, 
+            "Content-type": "application/json; charset=UTF-8"
+        }
+       
+    })
+
+    const data = await res.json();
     return data;
 }
 
 export const getComplaint = async () => {
     const token = (JSON.parse(localStorage.getItem('token')))['token']
-    console.log(token);
     const res = await fetch(`${baseURL}/admin/getComplaint`, {
-
-        // Adding headers to the request
         headers: {
             'Authorization': 'Bearer '+ token, 
             "Content-type": "application/json; charset=UTF-8"
@@ -242,32 +181,48 @@ export const getComplaint = async () => {
     })
 
     const data = await res.json();
-    console.log(data);
+    return data;
+}
+
+export const getRequest= async (body) => {
+    const token = (JSON.parse(localStorage.getItem('token')))['token']
+    const res = await fetch(`${baseURL}/admin/getRequests`, {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: {
+            'Authorization': 'Bearer '+ token, 
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    })
+
+    const data = await res.json();
+    return data;
+}
+
+export const getRequests= async () => {
+    const token = (JSON.parse(localStorage.getItem('token')))['token']
+    const res = await fetch(`${baseURL}/admin/getRequests`, {
+        headers: {
+            'Authorization': 'Bearer '+ token, 
+            "Content-type": "application/json; charset=UTF-8"
+        }
+       
+    })
+
+    const data = await res.json();
     return data;
 }
 
 
-
-
 export const getProfileData = async () => {
     const token = (JSON.parse(localStorage.getItem('token')))['token']
-    console.log(token);
-
     const res = await fetch(`${baseURL}/user/getProfileData`, {
-
-        // Adding headers to the request
         headers: {
             'Authorization': 'Bearer '+ token, 
             "Content-type": "application/json; charset=UTF-8"
         }
        
     })
-
     const data = await res.json();
-    console.log(data);
-
-
-    // const res = await axios.post(`${baseURL}/auth/login`, formData);
-    // const data = res.data;
     return data;
 }

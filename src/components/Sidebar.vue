@@ -83,7 +83,7 @@
           </li>
           <li>
             <b-nav-item v-if="userType === 'student'" to="/usrequest">
-              <i class="ni ni-send"></i>Requests
+              <i class="ni ni-send"></i>Request
             </b-nav-item>
           </li>
 

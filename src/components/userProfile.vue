@@ -4,7 +4,7 @@
     <Sidebar />
     <div class="main-content">
       <!-- Header -->
-      <div class="header bg-background pb-6 pt-5 pt-md-6">
+      <div class="header bg-background pb-5 pt-5 pt-md-6">
         <div class="container-fluid">
 
           <b-alert show variant="success"><span class="alert-link"><strong> Welcome to HostelCleaner's Student
@@ -13,7 +13,7 @@
         </div>
       </div>
       <!-- Page content -->
-      <div class="container-fluid mt--5">
+      <div class="container-fluid mt-5">
         <div class="row mt-2">
           <div class="col-xl-12 mb-5 mb-xl-0">
             <div class="card shadow">
@@ -23,7 +23,7 @@
                     <h5 class="mb-0">Student Profile</h5>
                   </div>
                   <div class="col text-right">
-                    <a href="mailto:xyz@gmail.com" target="_blank" class="btn btn-sm btn-primary">Request
+                    <a href="mailto:admin@gmail.com" target="_blank" class="btn btn-sm btn-primary">Request
                       Change</a>
                   </div>
                 </div>
@@ -34,7 +34,7 @@
                   <thead class="thead-light">
                     <tr>
                       <th scope="col" style="font-size: 12px;">Roll Number</th>
-                      <th scope="col" style="font-size: 13px;">{{ userData.rollNo ? userData.rollNo : 'null' }}</th>
+                      <th scope="col" style="font-size: 13px;">{{ userData.roll_no ? userData.roll_no : 'null' }}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -86,7 +86,6 @@ export default {
   async mounted() {
     try {
       const data = await getProfileData();
-      console.log(data);
       this.userData = data;
     } catch (e) {
       console.log(e.message);

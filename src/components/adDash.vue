@@ -7,7 +7,7 @@
       <!-- Main content -->
       <div class="main-content">
         <!-- Header -->
-        <div class="header bg-background pb-6 pt-5 pt-md-6">
+        <div class="header bg-background pb-5 pt-5 pt-md-6">
           <div class="container-fluid">
 
             <b-alert show variant="success"><span class="alert-link"><strong> Welcome to online Hostel Cleaner admin
@@ -16,7 +16,7 @@
           </div>
         </div>
         <!-- Page content -->
-        <div class="container-fluid mt--5">
+        <div class="container-fluid mt-5">
           <div class="row mt-2 pb-5">
             <div class="col-xl-12 mb-5 mb-xl-0">
               <div class="card shadow">
@@ -95,7 +95,6 @@ export default {
   async mounted() {
     try {
       const data = await getSuggestion();
-      console.log(data);
       this.userData = data;
     } catch (e) {
       console.log(e.message);

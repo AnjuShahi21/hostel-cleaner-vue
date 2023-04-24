@@ -30,7 +30,7 @@
 
             <div class="form-group mb-2">
               <label>Roll Number</label>
-              <input type="number" v-model="formData.rollNo" placeholder="Enter Your Roll No.." class="form-control">
+              <input type="number" v-model="formData.roll_no" placeholder="Enter Your Roll No.." class="form-control">
             </div>
 
             <div class="form-group mb-2">
@@ -84,7 +84,7 @@ export default {
       formData: {
         name: "",
         email: "",
-        rollNo: 0,
+        roll_no: 0,
         hostel: "",
         room: "",
         floor: "",
@@ -97,13 +97,11 @@ export default {
   },
   methods: {
     async register() {
-      console.log(this.formData);
       this.hideAlert();
       this.isLoading = true;
       try {
         await register(this.formData);
         this.success = true;
-        console.log("Registered");
         this.$router.push('/login');
       }
       catch (e) {

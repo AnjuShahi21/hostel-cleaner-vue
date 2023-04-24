@@ -1,14 +1,14 @@
 <template>
   <div>
+    <LoadingOverlay :active="isLoading" />
+    <AlertComp :error="error" :success="success" :hideAlert="hideAlert" :errormessage="errormessage"/>
     <title>Register HostelCleaner - HostelCleaner Admin Dashboard</title>
     <!-- side navigation -->
     <Sidebar />
-    <LoadingOverlay :active="isLoading" />
-    <AlertComp :error="error" :success="success" :hideAlert="hideAlert" />
       <!-- Main content -->
     <div class="main-content">
       <!-- Header -->
-      <div class="header bg-background pb-6 pt-5 pt-md-6">
+      <div class="header bg-background pb-5 pt-5 pt-md-6">
         <div class="container-fluid">
           <b-alert show variant="success"
             ><span class="alert-link"
@@ -20,8 +20,9 @@
           <Header />
         </div>
       </div>
+
       <!-- Page content -->
-      <div class="container-fluid mt--5 pb-6">
+      <div class="container-fluid mt-5 pb-6">
         <div class="row mt-2">
           <div class="col-xl-12 order-xl-1">
             <div class="card bg-light shadow">
@@ -47,19 +48,18 @@
                           />
                         </div>
                       </div>
-                      <div class="col-md-3">
+                        <div class="col-md-3">
                         <div class="form-group">
-                          <label class="form-control-label" for="input-room"
-                            >Hostel <span class="text-danger">*</span></label
-                          >
+                          <label class="form-control-label" for="input-id"
+                            >Mobile Number<span class="text-danger">*</span></label>
                           <input
                             type="text"
-                            name="reghostel"
-                            id="input-hostel"
-                            v-model="formData.hostel"
+                            name="mobile_no"
+                            id="input-id"
+                            v-model="formData.mobile_no"
                             class="form-control"
                             required
-                            placeholder="Enter hostel name"
+                            placeholder="Enter mobile no"
                           />
                         </div>
                       </div>
@@ -67,7 +67,7 @@
                        <div class="col-md-3">
                         <div class="form-group">
                           <label class="form-control-label" for="input-cleaner_id"
-                            >Mobile No<span class="text-danger">*</span></label
+                            >Cleaner Id<span class="text-danger">*</span></label
                           >
                           <input
                             type="number"
@@ -86,15 +86,21 @@
                           <label class="form-control-label" for="input-gender"
                             >Gender <span class="text-danger">*</span></label
                           >
-                          <input
-                            type="text"
-                            name="reg_gender"
-                            id="input-gender"
-                            v-model="formData.gender"
+                          <select
                             class="form-control"
+                            v-model="formData.gender"
                             required
-                            placeholder="Enter gender"
-                          />
+                          >
+                            <option
+                              selected="true"
+                              value=""
+                              disabled="disabled"
+                            >
+                              Select Option
+                            </option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                          </select>
                         </div>
                       </div>
                     </div>
@@ -134,10 +140,11 @@ export default {
     return {
       formData: {
         name: "",
-        hostel: "",
+        mobile_no: "",
         cleaner_id:"",
         gender:""
       },
+      errormessage:"",
       isLoading: false,
       error: false,
        success: false,
@@ -147,18 +154,20 @@ export default {
     async addCleaner() {
       this.isLoading = true;
       try {
-        const data = await addNewCleaner(this.formData);
-        if (!data) {
-          throw new Error("No user found");
+        const res = await addNewCleaner(this.formData);
+        if(!res.ok){
+          throw new Error(" Request failed")
         }
+        const data=await res.json();
         console.log(data);
          this.success=true
-        this.formData.rollNo="";
         this.formData.name="";
-        this.formData.floor=""
+        this.formData.mobile_no="";
+        this.formData.cleaner_id="";
+        this.formData.gender=""
       } catch (e) {
         this.error = true;
-        console.log(e.message);
+        console.log(this.errormessage=e.message);
       }
       this.isLoading = false;
     },

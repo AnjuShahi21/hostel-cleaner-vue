@@ -2,12 +2,12 @@
   <div>
     <title>Clean Request - HostelCleaner's Student Dashboard</title>
     <LoadingOverlay :active="isLoading" />
-    <AlertComp :error="error" :success="success" :hideAlert="hideAlert" />
+    <AlertComp :error="error" :success="success" :errormessage="errormessage" :hideAlert="hideAlert" />
     <Sidebar />
 
     <div class="main-content">
       <!-- Header -->
-      <div class="header bg-background pb-6 pt-5 pt-md-6">
+      <div class="header bg-background pb-5 pt-5 pt-md-6">
         <div class="container-fluid">
           <b-alert show variant="success"
             ><span class="alert-link"
@@ -20,7 +20,7 @@
         </div>
       </div>
       <!-- Page content -->
-      <div class="container-fluid mt--5 pb-5">
+      <div class="container-fluid mt-5 pb-5">
         <div class="row mt-2">
           <div class="col-xl-12 order-xl-1">
             <div class="card bg-light shadow">
@@ -38,10 +38,11 @@
                           >
                           <input
                             type="text"
-                            name="rollno"
+                            name="roll_no"
                             v-model="formData.roll_no"
                             id="input-id"
                             class="form-control"
+                            disabled
                           />
                         </div>
                       </div>
@@ -52,7 +53,7 @@
                           >
                           <div class="input-group input-group-alternative">
                             <div class="input-group-prepend">
-                              <span class="input-group-text"
+                              <span @click="$refs.datePicker.showPicker()" class="input-group-text"
                                 ><i class="ni ni-calendar-grid-58"></i
                               ></span>
                             </div>
@@ -60,9 +61,10 @@
                               name="reqDate"
                               id="dateInput"
                               v-model="formData.date"
-                              class="form-control datepicker"
+                              class="form-control datepicker pl-2"
                               placeholder="Select date"
-                              type="text"
+                              type="date"
+                              ref="datePicker"
                               required
                             />
                           </div>
@@ -116,10 +118,11 @@ export default {
     return {
       formData: {
         roll_no: "",
-        data: "",
+        date: "",
         cleaningTime: "",
         req_id: "",
       },
+      errormessage:"",
       isLoading: false,
       error: false,
       success: false,
@@ -135,15 +138,18 @@ export default {
     async sendClnReq() {
       this.isLoading = true;
       try {
-        const data = await sendRequest(this.formData);
+        const res = await sendRequest(this.formData);
+        if(!res.ok) {
+          throw new Error(" Request is in processing ...");
+        }
+        const data = await res.json();
         console.log(data);
         this.success = true;
-        (this.formData.roll_no = ""),
-          (this.formData.data = ""),
-          (this.formData.cleaningTime = "");
+        this.formData.date = "",
+        this.formData.cleaningTime = "";
       } catch (e) {
         this.error = true;
-        console.log("Error:", e.message);
+        console.log(this.errormessage=e.message);
       }
       this.isLoading = false;
     },
@@ -152,6 +158,17 @@ export default {
       this.success = false;
     },
   },
+  mounted() {
+    this.formData.roll_no = JSON.parse(localStorage.getItem("userData"))[
+          "_doc"
+        ]["roll_no"];
+  }
 };
 </script>
 
+<style>
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+</style>

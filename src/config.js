@@ -1,4 +1,3 @@
 export default{
-baseUrl: `http://localhost:3000`
-    // BaseUrl: `https://fynd-user-modue.herokuapp.com`
+baseUrl: process.env.VUE_APP_BACKEND_URL
 };

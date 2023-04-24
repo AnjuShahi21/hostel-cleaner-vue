@@ -8,7 +8,7 @@
   <!-- Main content -->
   <div class="main-content">
     <!-- Header -->
-    <div class="header bg-background pb-6 pt-5 pt-md-6">
+    <div class="header bg-background pb-5 pt-5 pt-md-6">
       <div class="container-fluid">
 
 <b-alert show variant="success"><span class="alert-link"><strong>  Welcome to online Hostel Cleaner admin portal.</strong></span></b-alert>
@@ -16,7 +16,7 @@
 </div>
     </div>
     <!-- Page content -->
-    <div class="container-fluid mt--5 pb-6">
+    <div class="container-fluid mt-5 pb-6">
       <div class="row mt-2">
         <div class="col-xl-12 order-xl-1">
           <div class="card bg-light shadow">
@@ -77,7 +77,6 @@ export default {
   Sidebar,
   Header
   },
-
 }
 
 </script>

@@ -18,7 +18,6 @@ export default {
 }
 </script>
 
-
 <style>
 .card {
   box-shadow: 10px 10px 5px #3835315e;
